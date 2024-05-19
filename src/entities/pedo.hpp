@@ -10,6 +10,8 @@ class Pedo : public Entity {
 
     void draw() override;
     void update() override;
+
+    bool is_active();
 };
 
 namespace Game {

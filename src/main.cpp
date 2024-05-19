@@ -10,7 +10,7 @@ int main(int, char**) {
     InitWindow(800, 600, "Codename: Pedestrian");
     InitAudioDevice();
 
-    SetTargetFPS(FRAMERATE);
+    SetTargetFPS(TICK_RATE);
 
     restart();
 

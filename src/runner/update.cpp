@@ -1,9 +1,10 @@
+#include <memory>
+
 #include "camera.hpp"
+#include "defs.hpp"
 
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
-#include <memory>
-#include <typeinfo>
 
 void update() {
     for (auto& entity : Game::entities) {
@@ -23,6 +24,6 @@ void update() {
 
     if (!Game::active_pedo.expired()) {
         const auto& pedo = *Game::active_pedo.lock();
-        Game::look_at = {pedo.x, pedo.y};
+        Game::look_at = {pedo.pos.x + PEDO_WIDTH, pedo.pos.y};
     }
 }
