@@ -1,0 +1,11 @@
+/build*
+/.cache
+/.ccls-cache
+/.vscode
+/.vs
+/out
+
+\#*
+*~
+
+compile_commands.json
