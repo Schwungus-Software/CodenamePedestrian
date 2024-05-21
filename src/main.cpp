@@ -8,6 +8,8 @@ extern void draw();
 
 int main(int, char**) {
     InitWindow(800, 600, "Codename: Pedestrian");
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
+
     InitAudioDevice();
 
     SetTargetFPS(TICK_RATE);

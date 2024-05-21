@@ -40,5 +40,5 @@ void Pedo::update() {
 }
 
 void Pedo::draw() {
-    DrawRectangle(pos.x, pos.y, width, PEDO_VISUAL_HEIGHT, RED);
+    DrawRectangle(pos.x, pos.y, width, VISUAL_HEIGHT, RED);
 }
