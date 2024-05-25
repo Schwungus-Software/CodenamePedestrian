@@ -20,9 +20,9 @@ static void redo_lanes() {
     Game::front_lanes.clear();
     Game::back_lanes.clear();
 
-    const float width = GetScreenWidth() / TOTAL_ZOOM - SAFE_ZONE * 2.0f;
+    const int width = GetScreenWidth() / TOTAL_ZOOM - SAFE_ZONE * 2;
 
-    const float lanes_total_width = width - BREAK_LANE_MIN_WIDTH;
+    const int lanes_total_width = width - BREAK_LANE_MIN_WIDTH;
     const int lanes_count = lanes_total_width / LANE_WIDTH;
 
     Game::no_lanes_bitch = lanes_count < 1;
@@ -38,7 +38,7 @@ static void redo_lanes() {
 
     for (std::size_t i = 0; i < front_lanes; i++) {
         Game::front_lanes.push_back({
-            .left = SAFE_ZONE + i * LANE_WIDTH,
+            .left = static_cast<int>(SAFE_ZONE + i * LANE_WIDTH),
             .width = LANE_WIDTH,
         });
     }
@@ -47,7 +47,7 @@ static void redo_lanes() {
 
     for (std::size_t i = 0; i < back_lanes; i++) {
         Game::back_lanes.push_back({
-            .left = shebang + i * LANE_WIDTH,
+            .left = static_cast<int>(shebang + i * LANE_WIDTH),
             .width = LANE_WIDTH,
         });
     }

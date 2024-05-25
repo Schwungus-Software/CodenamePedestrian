@@ -10,6 +10,15 @@ bool Pedo::is_active() {
 }
 
 void Pedo::update() {
+    if (dying) {
+        die_countdown -= TICK_DELAY;
+
+        if (die_countdown <= 0.0f) {
+            deletion_marker = true;
+            return;
+        }
+    }
+
     if (!is_active()) {
         return;
     }

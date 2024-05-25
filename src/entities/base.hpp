@@ -10,6 +10,8 @@ class Entity {
     Vector2 pos, vel;
     float width, height;
 
+    bool deletion_marker = false;
+
     Entity(float x, float y, float width, float height)
         : pos{x, y}, vel{0.0f, 0.0f}, width(width), height(height) {}
 
