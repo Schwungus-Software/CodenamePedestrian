@@ -10,7 +10,7 @@
 void Car::update() {
     if (stopping) {
         const float abs = std::max(0.0f, std::abs(vel.y) - SLOWDOWN * TICK_DELAY);
-        vel.y = vel.y >= 0.0 ? abs : -abs;
+        vel.y = (vel.y >= 0.0 ? abs : -abs);
     }
 
     apply_velocity();
@@ -39,10 +39,10 @@ void Car::update() {
 
     if (intersects_with(pedo)) {
         stopping = true;
-        despawn_countdown = 3.0f;
+        despawn_countdown = 5.0f;
 
         pedo.dying = true;
-        pedo.die_countdown = 3.0f;
+        pedo.die_countdown = 2.0f;
 
         pedo.vel = Vector2Add(pedo.vel, vel);
     }

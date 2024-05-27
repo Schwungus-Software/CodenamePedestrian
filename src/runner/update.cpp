@@ -43,11 +43,11 @@ void update() {
 }
 
 static void spawn_cars() {
-    static float last_spawn = GetTime();
-    const float cur_time = GetTime();
+    static float spawn_delay = CAR_SPAWN_DELAY;
+    spawn_delay -= TICK_DELAY;
 
-    if (cur_time - last_spawn > CAR_SPAWN_DELAY) {
-        last_spawn = cur_time;
+    if (spawn_delay <= 0.0f) {
+        spawn_delay = CAR_SPAWN_DELAY;
     } else {
         return;
     }
@@ -56,7 +56,7 @@ static void spawn_cars() {
     std::set<std::size_t> occupied_lanes;
 
     for (const auto& entity : Game::entities) {
-        const auto car = std::dynamic_pointer_cast<Car>(entity);
+        const auto& car = std::dynamic_pointer_cast<Car>(entity);
 
         if (car != nullptr) {
             const auto lane_idx = car->get_lane_idx();
