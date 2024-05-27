@@ -7,7 +7,7 @@ class Pedo : public Entity {
     static constexpr const float WIDTH = 4.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 9.0f,
                                  AIR_RESISTANCE = 0.95f;
 
-    bool dying = false;
+    bool dying = false, safe = false;
     float die_countdown = 0.0f, footstep_countdown = 0.0f;
 
     Pedo(float x, float y) : Entity(x - WIDTH * 0.5f, y, WIDTH, HEIGHT) {}
@@ -20,5 +20,5 @@ class Pedo : public Entity {
 
 namespace Game {
     inline std::weak_ptr<Pedo> active_pedo;
-    inline bool all_pedos_dead;
+    inline bool all_pedos_gone;
 } // namespace Game

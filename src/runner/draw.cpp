@@ -5,6 +5,7 @@
 #include "background.hpp"
 #include "defs.hpp"
 #include "lane.hpp"
+#include "score.hpp"
 
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
@@ -72,13 +73,30 @@ void draw() {
         EndDrawing();
     };
 
+    const auto draw_score = []() {
+        const int score_width = 90, score_margin = 10,
+                  score_left = GetScreenWidth() - score_width - score_margin, score_fs = 30;
+
+        const char* prefix = "SCORE: ";
+        const Color color = BLACK;
+
+        DrawText(prefix, score_left - MeasureText(prefix, score_fs), score_margin, score_fs, color);
+        DrawText(std::to_string(Game::score).c_str(), score_left, score_margin, score_fs, color);
+    };
+
     if (Game::no_lanes_bitch) {
         center_err("NO LANES; WINDOW TOO SMALL");
         return;
     }
 
-    if (Game::all_pedos_dead) {
-        center_err("GAME OVER. PRESS R TO RESTART");
+    if (Game::all_pedos_gone) {
+        if (Game::score > 0) {
+            center_err("YOU SAVED SOMEONE! PRESS R TO TRY AGAIN");
+            draw_score();
+        } else {
+            center_err("GAME OVER. PRESS R TO RESTART");
+        }
+
         return;
     }
 
@@ -107,6 +125,8 @@ void draw() {
     draw_entities();
 
     EndMode2D();
+
+    draw_score();
 
     EndDrawing();
 }

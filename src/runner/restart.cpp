@@ -3,6 +3,7 @@
 
 #include "defs.hpp"
 #include "lane.hpp"
+#include "score.hpp"
 
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
@@ -13,6 +14,9 @@ static void reset_lanes();
 static void reset_pedos();
 
 void restart() {
+    Game::score = 0;
+    Game::all_pedos_gone = false;
+
     reset_lanes();
     Game::entities.clear();
     reset_pedos();
@@ -21,8 +25,6 @@ void restart() {
 }
 
 static void reset_lanes() {
-    Game::all_pedos_dead = false;
-
     Game::front_lanes.clear();
     Game::back_lanes.clear();
 

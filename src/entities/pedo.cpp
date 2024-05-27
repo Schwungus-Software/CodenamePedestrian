@@ -3,6 +3,8 @@
 
 #include "background.hpp"
 #include "defs.hpp"
+#include "lane.hpp"
+#include "score.hpp"
 #include "sounds.hpp"
 
 #include "entities/pedo.hpp"
@@ -19,6 +21,23 @@ bool Pedo::is_active() {
 }
 
 void Pedo::update() {
+    if (safe) {
+        apply_velocity();
+        return;
+    }
+
+    const float safe_zone_hit = SAFE_ZONE + Game::break_lane_width +
+                                (Game::front_lanes.size() + Game::back_lanes.size()) * LANE_WIDTH +
+                                SAFE_ZONE_DISPATCH_MARGIN;
+
+    if (pos.x >= safe_zone_hit) {
+        Game::active_pedo = {};
+        Game::score += Goals::PEDO_SAVED;
+        dying = false;
+        safe = true;
+        return;
+    }
+
     if (dying) {
         die_countdown -= TICK_DELAY;
 

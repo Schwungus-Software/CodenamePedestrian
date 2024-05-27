@@ -32,7 +32,7 @@ void update() {
         for (auto& entity : Game::entities) {
             auto ptr = std::dynamic_pointer_cast<Pedo>(entity);
 
-            if (ptr != nullptr) {
+            if (ptr != nullptr && !ptr->safe) {
                 Game::active_pedo = ptr;
                 break;
             }
@@ -40,7 +40,7 @@ void update() {
     }
 
     if (Game::active_pedo.expired()) {
-        Game::all_pedos_dead = true;
+        Game::all_pedos_gone = true;
     }
 }
 
