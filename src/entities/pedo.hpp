@@ -8,7 +8,7 @@ class Pedo : public Entity {
                                  AIR_RESISTANCE = 0.95f;
 
     bool dying = false;
-    float die_countdown;
+    float die_countdown = 0.0f, footstep_countdown = 0.0f;
 
     Pedo(float x, float y) : Entity(x - WIDTH * 0.5f, y, WIDTH, HEIGHT) {}
 

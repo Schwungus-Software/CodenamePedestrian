@@ -74,7 +74,19 @@ void draw() {
         .zoom = TOTAL_ZOOM,
     });
 
-    DrawTexture(Game::background.value().texture, 0, 0, WHITE);
+    const auto& bg = Game::background.value().texture;
+
+    DrawTextureRec(
+        bg,
+        {
+            .x = 0.0f,
+            .y = 0.0f,
+            .width = static_cast<float>(bg.width),
+            .height = static_cast<float>(-bg.height),
+        },
+        {0.0f, 0.0f}, WHITE
+    );
+
     draw_entities();
 
     EndMode2D();

@@ -16,7 +16,7 @@ class Car : public Entity {
     } direction;
 
   private:
-    bool stopping = false;
+    bool braking = false;
     float despawn_countdown = 0.0f;
 
   public:

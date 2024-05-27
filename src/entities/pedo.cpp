@@ -54,7 +54,6 @@ void Pedo::update() {
         movement.y += 0.7;
     }
 
-    static float footstep_countdown = 0.0;
     footstep_countdown -= TICK_DELAY;
 
     if (!dying && Vector2LengthSqr(movement) > 0.01f && footstep_countdown <= 0.0f) {
@@ -97,7 +96,7 @@ static void bleed(float center_x, float center_y) {
                 continue;
             }
 
-            DrawPixel(x, GetScreenHeight() - 1 - y, BLOOD);
+            DrawPixel(x, y, BLOOD);
         }
     }
 

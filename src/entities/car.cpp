@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#include "background.hpp"
 #include "car.hpp"
 #include "defs.hpp"
 #include "lane.hpp"
@@ -8,16 +9,27 @@
 
 #include "entities/pedo.hpp"
 
-const constexpr float PEDO_DEATH_DELAY = 2.0f, CAR_DESPAWN_DELAY = 5.0f,
-                      CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 64.0f;
+const constexpr float PEDO_DEATH_DELAY = 2.0f, CAR_DESPAWN_DELAY = 5.0f;
+const constexpr float CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 64.0f;
+
+const constexpr Color BRAKE_TRAIL{12, 12, 12, 255};
+const constexpr float BRAKE_TRAIL_WIDTH = 1.5f;
+
+static void draw_brake_trail(float, float, float, float);
 
 void Car::update() {
-    if (stopping) {
+    if (braking) {
         const float abs = std::max(0.0f, std::abs(vel.y) - SLOWDOWN * TICK_DELAY);
         vel.y = (vel.y >= 0.0 ? abs : -abs);
     }
 
+    const auto old_pos = pos;
     apply_velocity();
+
+    if (braking) {
+        const auto dist = Vector2Subtract(pos, old_pos).y;
+        draw_brake_trail(old_pos.x, old_pos.y, width, dist);
+    }
 
     const float MARGIN = 32.0f;
 
@@ -26,7 +38,7 @@ void Car::update() {
         return;
     }
 
-    if (stopping) {
+    if (braking) {
         despawn_countdown -= TICK_DELAY;
 
         if (despawn_countdown <= 0.0f) {
@@ -42,8 +54,8 @@ void Car::update() {
     auto& pedo = *Game::active_pedo.lock();
 
     if (!pedo.dying && intersects_with(pedo)) {
-        if (!stopping) {
-            stopping = true;
+        if (!braking) {
+            braking = true;
             despawn_countdown = CAR_DESPAWN_DELAY;
         }
 
@@ -77,4 +89,13 @@ std::optional<std::size_t> Car::get_lane_idx() const {
     }
 
     return {};
+}
+
+static void draw_brake_trail(float x, float y, float car_width, float dist) {
+    const float margin = 1.0f;
+
+    BeginTextureMode(Game::background.value());
+    DrawRectangle(x + margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
+    DrawRectangle(x + car_width - margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
+    EndTextureMode();
 }
