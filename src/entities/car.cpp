@@ -4,6 +4,7 @@
 #include "car.hpp"
 #include "defs.hpp"
 #include "lane.hpp"
+#include "sounds.hpp"
 
 #include "entities/pedo.hpp"
 
@@ -38,6 +39,8 @@ void Car::update() {
     auto& pedo = *Game::active_pedo.lock();
 
     if (intersects_with(pedo)) {
+        PlaySound(Sounds::crash);
+
         stopping = true;
         despawn_countdown = 5.0f;
 
