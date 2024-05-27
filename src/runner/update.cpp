@@ -40,10 +40,10 @@ void update() {
     }
 }
 
-const constexpr float MIN_SPAWN_DELAY = 1.0f, SPAWN_DELAY_RANDOM_OFFSET = 2.0f;
+const constexpr float BASE_SPAWN_DELAY_PER_LANE = 2.0f, SPAWN_DELAY_RANDOM_OFFSET = 5.0f;
 
 static void spawn_cars() {
-    static float spawn_delay = MIN_SPAWN_DELAY;
+    static float spawn_delay = 0.0f;
     spawn_delay -= TICK_DELAY;
 
     if (spawn_delay > 0.0f) {
@@ -73,7 +73,8 @@ static void spawn_cars() {
 
     if (max_attempts > 0) {
         const float randomness = GetRandomValue(1, 100) * 0.01f;
-        spawn_delay = MIN_SPAWN_DELAY + SPAWN_DELAY_RANDOM_OFFSET * randomness;
+        spawn_delay = BASE_SPAWN_DELAY_PER_LANE + SPAWN_DELAY_RANDOM_OFFSET * randomness;
+        spawn_delay /= lanes_count;
 
         const float WIDTH = LANE_WIDTH * 0.9f, HEIGHT = LANE_WIDTH * 1.8f;
 
