@@ -95,7 +95,14 @@ static void draw_brake_trail(float x, float y, float car_width, float dist) {
     const float margin = 1.0f;
 
     BeginTextureMode(Game::background.value());
+
+    if (dist < 0.0f) {
+        dist = std::abs(dist);
+        y -= dist;
+    }
+
     DrawRectangle(x + margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
     DrawRectangle(x + car_width - margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
+
     EndTextureMode();
 }
