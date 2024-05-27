@@ -8,6 +8,9 @@
 
 #include "entities/pedo.hpp"
 
+const constexpr float PEDO_DEATH_DELAY = 2.0f, CAR_DESPAWN_DELAY = 5.0f,
+                      CRASH_IMPULSE_FACTOR = 1.7f;
+
 void Car::update() {
     if (stopping) {
         const float abs = std::max(0.0f, std::abs(vel.y) - SLOWDOWN * TICK_DELAY);
@@ -38,16 +41,18 @@ void Car::update() {
 
     auto& pedo = *Game::active_pedo.lock();
 
-    if (intersects_with(pedo)) {
-        PlaySound(Sounds::crash);
-
-        stopping = true;
-        despawn_countdown = 5.0f;
+    if (!pedo.dying && intersects_with(pedo)) {
+        if (!stopping) {
+            stopping = true;
+            despawn_countdown = CAR_DESPAWN_DELAY;
+        }
 
         pedo.dying = true;
-        pedo.die_countdown = 2.0f;
+        pedo.die_countdown = PEDO_DEATH_DELAY;
 
-        pedo.vel = Vector2Add(pedo.vel, vel);
+        pedo.vel = Vector2Add(pedo.vel, Vector2Scale(vel, CRASH_IMPULSE_FACTOR));
+
+        PlaySound(Sounds::crash);
     }
 }
 
