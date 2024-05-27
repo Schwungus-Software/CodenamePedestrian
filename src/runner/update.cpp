@@ -38,6 +38,10 @@ void update() {
             }
         }
     }
+
+    if (Game::active_pedo.expired()) {
+        Game::all_pedos_dead = true;
+    }
 }
 
 const constexpr float BASE_SPAWN_DELAY_PER_LANE = 2.0f, SPAWN_DELAY_RANDOM_OFFSET = 5.0f;

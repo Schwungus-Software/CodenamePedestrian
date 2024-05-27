@@ -20,4 +20,5 @@ class Pedo : public Entity {
 
 namespace Game {
     inline std::weak_ptr<Pedo> active_pedo;
-}
+    inline bool all_pedos_dead;
+} // namespace Game

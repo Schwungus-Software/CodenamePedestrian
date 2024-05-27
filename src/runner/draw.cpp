@@ -7,6 +7,7 @@
 #include "lane.hpp"
 
 #include "entities/base.hpp"
+#include "entities/pedo.hpp"
 
 static void draw_entities() {
     for (auto& entity : Game::entities) {
@@ -58,10 +59,26 @@ void reset_background() {
 void draw() {
     BeginDrawing();
 
-    if (Game::no_lanes_bitch) {
+    const auto center_err = [](const char* text) {
         ClearBackground(RED);
-        DrawText("NO LANES; WINDOW TOO SMALL", 10, 10, 30, WHITE); // TODO: center
+
+        const int fs = 30;
+        const auto width = MeasureText(text, fs);
+
+        DrawText(
+            text, 0.5f * (GetScreenWidth() - width), 0.5f * (GetScreenHeight() - fs), fs, WHITE
+        );
+
         EndDrawing();
+    };
+
+    if (Game::no_lanes_bitch) {
+        center_err("NO LANES; WINDOW TOO SMALL");
+        return;
+    }
+
+    if (Game::all_pedos_dead) {
+        center_err("GAME OVER. PRESS R TO RESTART");
         return;
     }
 

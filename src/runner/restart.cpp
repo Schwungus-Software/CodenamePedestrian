@@ -21,6 +21,8 @@ void restart() {
 }
 
 static void reset_lanes() {
+    Game::all_pedos_dead = false;
+
     Game::front_lanes.clear();
     Game::back_lanes.clear();
 
