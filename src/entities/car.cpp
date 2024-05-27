@@ -9,7 +9,7 @@
 #include "entities/pedo.hpp"
 
 const constexpr float PEDO_DEATH_DELAY = 2.0f, CAR_DESPAWN_DELAY = 5.0f,
-                      CRASH_IMPULSE_FACTOR = 1.7f;
+                      CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 64.0f;
 
 void Car::update() {
     if (stopping) {
@@ -51,6 +51,7 @@ void Car::update() {
         pedo.die_countdown = PEDO_DEATH_DELAY;
 
         pedo.vel = Vector2Add(pedo.vel, Vector2Scale(vel, CRASH_IMPULSE_FACTOR));
+        pedo.vel.x += CRASH_HORIZONTAL_IMPULSE * GetRandomValue(-50, 50) * 0.02f;
 
         PlaySound(Sounds::crash);
     }
