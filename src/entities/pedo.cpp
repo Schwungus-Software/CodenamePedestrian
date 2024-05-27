@@ -7,10 +7,9 @@
 #include "entities/pedo.hpp"
 
 const constexpr Color BLOOD{255, 0, 0, 255};
-const constexpr int BLOOD_RADIUS = 3;
-const constexpr float BLOOD_PROB = 0.3f;
+const constexpr float BLOOD_RADIUS = 2.5f, BLOOD_PROB = 0.32f;
 
-static void bleed(int, int);
+static void bleed(float, float);
 
 bool Pedo::is_active() {
     return !Game::active_pedo.expired() && Game::active_pedo.lock().get() == this;
@@ -72,11 +71,14 @@ void Pedo::draw() {
     DrawRectangle(pos.x, pos.y, width, VISUAL_HEIGHT, RED);
 }
 
-static void bleed(int center_x, int center_y) {
+static void bleed(float center_x, float center_y) {
+    center_x += Pedo::WIDTH * 0.5f;
+    center_y += Pedo::HEIGHT * 0.5f;
+
     BeginTextureMode(Game::background.value());
 
-    for (int x = center_x - BLOOD_RADIUS; x <= center_x + BLOOD_RADIUS; x++) {
-        for (int y = center_y - BLOOD_RADIUS; y <= center_y + BLOOD_RADIUS; y++) {
+    for (float x = center_x - BLOOD_RADIUS; x <= center_x + BLOOD_RADIUS; x += 1.0f) {
+        for (float y = center_y - BLOOD_RADIUS; y <= center_y + BLOOD_RADIUS; y += 1.0f) {
             const float prob = 0.01f * GetRandomValue(1, 100);
 
             if (prob > BLOOD_PROB) {
