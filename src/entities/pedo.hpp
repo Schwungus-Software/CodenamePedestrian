@@ -4,7 +4,7 @@
 
 class Pedo : public Entity {
   public:
-    static constexpr const float WIDTH = 4.0f, VISUAL_HEIGHT = 9.0f;
+    static constexpr const float WIDTH = 4.0f, VISUAL_HEIGHT = 9.0f, AIR_RESISTANCE = 0.95f;
 
     bool dying = false;
     float die_countdown;

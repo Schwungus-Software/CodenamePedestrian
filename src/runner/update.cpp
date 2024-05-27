@@ -10,6 +10,8 @@
 #include "entities/car.hpp"
 #include "entities/pedo.hpp"
 
+const constexpr float CAR_SPAWN_DELAY = 0.8f;
+
 extern void restart();
 
 static void spawn_cars();
@@ -44,7 +46,7 @@ static void spawn_cars() {
     static float last_spawn = GetTime();
     const float cur_time = GetTime();
 
-    if (cur_time - last_spawn >= CAR_SPAWN_DELAY) {
+    if (cur_time - last_spawn > CAR_SPAWN_DELAY) {
         last_spawn = cur_time;
     } else {
         return;
@@ -72,6 +74,8 @@ static void spawn_cars() {
     } while (--max_attempts > 0 && occupied_lanes.contains(lane_idx));
 
     if (max_attempts > 0) {
+        const float WIDTH = LANE_WIDTH * 0.9f, HEIGHT = LANE_WIDTH * 1.8f;
+
         float left;
         Car::Direction dir;
 
@@ -83,6 +87,8 @@ static void spawn_cars() {
             dir = Car::Direction::FORWARD;
         }
 
-        Game::entities.emplace_back(new Car(left, LANE_WIDTH * 0.9f, LANE_WIDTH * 1.8f, 5.0f, dir));
+        left += (LANE_WIDTH - WIDTH) * 0.5f;
+
+        Game::entities.emplace_back(new Car(left, WIDTH, HEIGHT, 512.0f, dir));
     }
 }

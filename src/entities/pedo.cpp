@@ -45,6 +45,8 @@ void Pedo::update() {
     movement = Vector2Scale(movement, TICK_DELAY * MOVE_SPEED);
     pos = Vector2Add(pos, movement);
 
+    vel = Vector2Scale(vel, AIR_RESISTANCE);
+
     apply_velocity();
 }
 

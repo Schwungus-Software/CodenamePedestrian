@@ -8,7 +8,7 @@
 
 class Car : public Entity {
   public:
-    static constexpr const float SLOWDOWN = 1.0f;
+    static constexpr const float SLOWDOWN = 1024.0f;
 
     enum Direction {
         FORWARD,
@@ -17,6 +17,7 @@ class Car : public Entity {
 
   private:
     bool stopping = false;
+    float despawn_countdown = 0.0;
 
   public:
     Car(float left, float width, float height, float velocity, Direction direction)
@@ -26,7 +27,7 @@ class Car : public Entity {
         if (direction == Direction::FORWARD) {
             pos.y = -height + 1.0f;
         } else {
-            pos.y = GetScreenHeight() - 2.0f + height;
+            pos.y = GetScreenHeight() - 2.0f;
         }
     }
 

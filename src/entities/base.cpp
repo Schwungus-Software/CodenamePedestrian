@@ -1,3 +1,5 @@
+#include "defs.hpp"
+
 #include "entities/base.hpp"
 
 #include "raymath.h"
@@ -8,5 +10,5 @@ bool Entity::intersects_with(const Entity& another) {
 }
 
 void Entity::apply_velocity() {
-    pos = Vector2Add(pos, vel);
+    pos = Vector2Add(pos, Vector2Scale(vel, TICK_DELAY));
 }
