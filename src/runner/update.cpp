@@ -10,8 +10,6 @@
 #include "entities/car.hpp"
 #include "entities/pedo.hpp"
 
-const constexpr float CAR_SPAWN_DELAY = 0.8f;
-
 extern void restart();
 
 static void spawn_cars();
@@ -42,13 +40,13 @@ void update() {
     }
 }
 
+const constexpr float MIN_SPAWN_DELAY = 1.0f, SPAWN_DELAY_RANDOM_OFFSET = 2.0f;
+
 static void spawn_cars() {
-    static float spawn_delay = CAR_SPAWN_DELAY;
+    static float spawn_delay = MIN_SPAWN_DELAY;
     spawn_delay -= TICK_DELAY;
 
-    if (spawn_delay <= 0.0f) {
-        spawn_delay = CAR_SPAWN_DELAY;
-    } else {
+    if (spawn_delay > 0.0f) {
         return;
     }
 
@@ -74,6 +72,9 @@ static void spawn_cars() {
     } while (--max_attempts > 0 && occupied_lanes.contains(lane_idx));
 
     if (max_attempts > 0) {
+        const float randomness = GetRandomValue(1, 100) * 0.01f;
+        spawn_delay = MIN_SPAWN_DELAY + SPAWN_DELAY_RANDOM_OFFSET * randomness;
+
         const float WIDTH = LANE_WIDTH * 0.9f, HEIGHT = LANE_WIDTH * 1.8f;
 
         float left;
