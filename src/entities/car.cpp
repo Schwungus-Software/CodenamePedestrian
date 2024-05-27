@@ -102,7 +102,7 @@ static void draw_brake_trail(float x, float y, float car_width, float dist) {
     }
 
     DrawRectangle(x + margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
-    DrawRectangle(x + car_width - margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
+    DrawRectangle(x + car_width - 1.0f - margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
 
     EndTextureMode();
 }
