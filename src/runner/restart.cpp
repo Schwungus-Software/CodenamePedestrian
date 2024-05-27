@@ -7,16 +7,20 @@
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
 
-static void redo_lanes();
-static void redo_pedos();
+extern void reset_background();
+
+static void reset_lanes();
+static void reset_pedos();
 
 void restart() {
-    redo_lanes();
+    reset_lanes();
     Game::entities.clear();
-    redo_pedos();
+    reset_pedos();
+
+    reset_background();
 }
 
-static void redo_lanes() {
+static void reset_lanes() {
     Game::front_lanes.clear();
     Game::back_lanes.clear();
 
@@ -53,7 +57,7 @@ static void redo_lanes() {
     }
 }
 
-static void redo_pedos() {
+static void reset_pedos() {
     for (std::size_t i = 0; i < PEDO_COUNT; i++) {
         const Vector2 origin{SAFE_ZONE / 2.0f, (i + 1) * PEDO_SPAWN_RADIUS * 2.01f};
         // TODO: randomize offset.

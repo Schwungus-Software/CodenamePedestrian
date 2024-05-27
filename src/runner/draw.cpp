@@ -1,5 +1,8 @@
+#include <optional>
+
 #include "raylib.h"
 
+#include "background.hpp"
 #include "defs.hpp"
 #include "lane.hpp"
 
@@ -21,7 +24,16 @@ static void draw_safe_lane(float left, float width) {
     DrawRectangle(left, 0.0f, width, GetScreenHeight(), LIGHTGRAY);
 }
 
-static void draw_lanes() {
+void reset_background() {
+    if (Game::background.has_value()) {
+        UnloadRenderTexture(Game::background.value());
+    }
+
+    Game::background = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+
+    BeginTextureMode(Game::background.value());
+    ClearBackground(GREEN);
+
     draw_safe_lane(0.0f, SAFE_ZONE);
     float left_cumulative = SAFE_ZONE;
 
@@ -39,6 +51,8 @@ static void draw_lanes() {
     }
 
     draw_safe_lane(left_cumulative, SAFE_ZONE);
+
+    EndTextureMode();
 }
 
 void draw() {
@@ -51,7 +65,7 @@ void draw() {
         return;
     }
 
-    ClearBackground(GREEN);
+    ClearBackground(BLACK);
 
     BeginMode2D({
         .offset = {0.0f, 0.0f},
@@ -60,9 +74,10 @@ void draw() {
         .zoom = TOTAL_ZOOM,
     });
 
-    draw_lanes();
+    DrawTexture(Game::background.value().texture, 0, 0, WHITE);
     draw_entities();
 
-    EndMode3D();
+    EndMode2D();
+
     EndDrawing();
 }
