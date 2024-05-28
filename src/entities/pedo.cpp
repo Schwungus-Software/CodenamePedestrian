@@ -105,7 +105,7 @@ void Pedo::draw() {
             VISUAL_HEIGHT, width, color
         );
     } else {
-        DrawRectangle(pos.x, pos.y, width, VISUAL_HEIGHT, color);
+        DrawRectangle(pos.x, pos.y + height - VISUAL_HEIGHT, width, VISUAL_HEIGHT, color);
     }
 }
 
