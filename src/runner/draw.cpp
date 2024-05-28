@@ -1,4 +1,5 @@
 #include <optional>
+#include <string>
 
 #include "raylib.h"
 
