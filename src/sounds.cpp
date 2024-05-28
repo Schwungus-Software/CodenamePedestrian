@@ -8,7 +8,7 @@ void load_sounds() {
 
     for (std::size_t i = 0; i < Sounds::footstep.size(); i++) {
         std::stringstream path_builder;
-        path_builder << "assets/footstep";
+        path_builder << "assets/footstep-";
         path_builder << i + 1;
         path_builder << ".wav";
 

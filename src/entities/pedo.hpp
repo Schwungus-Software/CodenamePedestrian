@@ -13,6 +13,9 @@ class Pedo : public Entity {
     void draw() override;
 
   private:
+    int footstep_sprite = 0;
+    bool flip_sprite = false;
+
     void draw_impl(Color);
 
   public:

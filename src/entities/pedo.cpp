@@ -6,10 +6,11 @@
 #include "lane.hpp"
 #include "score.hpp"
 #include "sounds.hpp"
+#include "sprites.hpp"
 
 #include "entities/pedo.hpp"
 
-const constexpr float WIDTH = 4.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 9.0f;
+const constexpr float WIDTH = 3.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 10.0f;
 
 const constexpr float FOOTSTEP_DELAY = 0.34f;
 
@@ -85,6 +86,12 @@ void Pedo::update() {
         movement.x += 1.0;
     }
 
+    if (movement.x > 0.01f) {
+        flip_sprite = false;
+    } else if (movement.x < -0.01f) {
+        flip_sprite = true;
+    }
+
     if (IsKeyDown(KEY_W)) {
         movement.y -= 0.7;
     }
@@ -95,9 +102,13 @@ void Pedo::update() {
 
     footstep_countdown -= TICK_DELAY;
 
-    if (!dying && Vector2LengthSqr(movement) > 0.01f && footstep_countdown <= 0.0f) {
-        PlaySound(Sounds::random_footstep());
+    if (Vector2LengthSqr(movement) > 0.01f && footstep_countdown <= 0.0f) {
+        if (!dying) {
+            PlaySound(Sounds::random_footstep());
+        }
+
         footstep_countdown = FOOTSTEP_DELAY;
+        footstep_sprite = (footstep_sprite + 1) % 4;
     }
 
     movement = Vector2Scale(movement, TICK_DELAY * MOVE_SPEED);
@@ -117,16 +128,49 @@ void Pedo::update() {
 }
 
 void Pedo::draw() {
-    draw_impl(RED);
+    draw_impl(WHITE);
 }
 
-void Pedo::draw_impl(Color color) {
+void Pedo::draw_impl(Color tint) {
+    Texture2D sprite;
+
+    switch (footstep_sprite) {
+        case 0:
+            sprite = Sprites::Pedo::walking[0];
+            break;
+        case 1:
+        case 3:
+            sprite = Sprites::Pedo::standing;
+            break;
+        case 2:
+            sprite = Sprites::Pedo::walking[1];
+            break;
+    }
+
     if (dying) {
-        DrawRectangle(
-            pos.x + width * 0.5f - VISUAL_HEIGHT * 0.5f, pos.y, VISUAL_HEIGHT, width, color
+        DrawTextureEx(
+            sprite,
+            {
+                std::floor(pos.x + width * 0.5f + VISUAL_HEIGHT * 0.5f),
+                std::floor(pos.y),
+            },
+            90.0f, 1.0f, tint
         );
     } else {
-        DrawRectangle(pos.x, pos.y + height - VISUAL_HEIGHT, width, VISUAL_HEIGHT, color);
+        DrawTextureRec(
+            sprite,
+            {
+                0.0f,
+                0.0f,
+                sprite.width * (flip_sprite ? -1.0f : 1.0f),
+                static_cast<float>(sprite.height),
+            },
+            {
+                std::floor(pos.x),
+                std::floor(pos.y + height - VISUAL_HEIGHT),
+            },
+            tint
+        );
     }
 }
 

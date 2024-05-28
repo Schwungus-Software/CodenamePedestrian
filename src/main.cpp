@@ -3,6 +3,7 @@
 #include "defs.hpp"
 
 extern void load_sounds();
+extern void load_sprites();
 
 extern void restart();
 extern void update();
@@ -13,6 +14,8 @@ int main(int, char**) {
     SetWindowState(FLAG_WINDOW_RESIZABLE);
 
     InitAudioDevice();
+
+    load_sprites();
     load_sounds();
 
     SetTargetFPS(TICK_RATE);
