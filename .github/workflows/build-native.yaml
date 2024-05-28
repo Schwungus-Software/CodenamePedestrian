@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build for ${{matrix.config.fancy_name}}
+    name: Build for ${{matrix.config.name}}
     runs-on: ${{matrix.config.os}}
     strategy:
       fail-fast: false
