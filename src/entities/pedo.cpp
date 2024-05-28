@@ -98,7 +98,16 @@ void Pedo::update() {
 }
 
 void Pedo::draw() {
-    DrawRectangle(pos.x, pos.y, width, VISUAL_HEIGHT, RED);
+    const auto color = RED;
+
+    if (dying) {
+        DrawRectangle(
+            pos.x + width * 0.5f - VISUAL_HEIGHT * 0.5f, pos.y + VISUAL_HEIGHT - height,
+            VISUAL_HEIGHT, width, color
+        );
+    } else {
+        DrawRectangle(pos.x, pos.y, width, VISUAL_HEIGHT, color);
+    }
 }
 
 static void bleed(float center_x, float center_y) {
