@@ -15,7 +15,7 @@ const constexpr float CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 64
 const constexpr Color BRAKE_TRAIL{12, 12, 12, 255};
 const constexpr float BRAKE_TRAIL_WIDTH = 1.5f;
 
-static void draw_brake_trail(float, float, float, float);
+static void draw_brake_trail(float, float, float, float, float);
 
 void Car::update() {
     if (braking) {
@@ -28,7 +28,7 @@ void Car::update() {
 
     if (braking) {
         const auto dist = Vector2Subtract(pos, old_pos).y;
-        draw_brake_trail(old_pos.x, old_pos.y, width, dist);
+        draw_brake_trail(old_pos.x, old_pos.y, width, height, dist);
     }
 
     const float MARGIN = 32.0f;
@@ -91,7 +91,7 @@ std::optional<std::size_t> Car::get_lane_idx() const {
     return {};
 }
 
-static void draw_brake_trail(float x, float y, float car_width, float dist) {
+static void draw_brake_trail(float x, float y, float car_width, float car_height, float dist) {
     const float margin = 1.0f;
 
     BeginTextureMode(Game::background.value());
@@ -99,6 +99,7 @@ static void draw_brake_trail(float x, float y, float car_width, float dist) {
     if (dist < 0.0f) {
         dist = std::abs(dist);
         y -= dist;
+        y += car_height;
     }
 
     DrawRectangle(x + margin, y, BRAKE_TRAIL_WIDTH, dist, BRAKE_TRAIL);
