@@ -11,20 +11,31 @@
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
 
+constexpr const int GRID_CELL_SIZE = 4;
+
 static void draw_entities() {
     for (auto& entity : Game::entities) {
         entity->draw();
     }
 }
 
-static void draw_driving_lane(float left, float width) {
+static void draw_driving_lane(int left, int width) {
     DrawRectangle(left, 0.0f, width, Game::height(), DARKGRAY);
-    // TODO: draw the white stripe thingies, i don't know what they are because i don't have a
-    // driver's license.
+    DrawLine(left + width, 0.0f, left + width, Game::height(), WHITE);
 }
 
-static void draw_safe_lane(float left, float width) {
-    DrawRectangle(left, 0.0f, width, Game::height(), LIGHTGRAY);
+static void draw_safe_lane(int left, int width) {
+    const Color TILE_COLOR{240, 240, 240, 255}, GRID_COLOR{220, 220, 220, 255};
+
+    DrawRectangle(left, 0, width, Game::height(), TILE_COLOR);
+
+    for (int gx = left; gx <= left + width; gx += GRID_CELL_SIZE) {
+        DrawLine(gx, 0, gx, Game::height(), GRID_COLOR);
+    }
+
+    for (int gy = 0; gy <= Game::height(); gy += GRID_CELL_SIZE) {
+        DrawLine(left, gy, left + width, gy, GRID_COLOR);
+    }
 }
 
 void reset_background() {
@@ -37,8 +48,8 @@ void reset_background() {
     BeginTextureMode(Game::background.value());
     ClearBackground(GREEN);
 
-    draw_safe_lane(0.0f, SAFE_ZONE);
-    float left_cumulative = SAFE_ZONE;
+    draw_safe_lane(0, SAFE_ZONE);
+    int left_cumulative = SAFE_ZONE;
 
     for (const auto& lane : Game::front_lanes) {
         draw_driving_lane(lane.left, lane.width);
