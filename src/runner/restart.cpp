@@ -8,6 +8,8 @@
 #include "entities/base.hpp"
 #include "entities/pedo.hpp"
 
+static const constexpr float PEDO_SPACING = 3.6f, PEDO_SPAWN_RADIUS = 2.5f;
+
 extern void reset_background();
 
 static void reset_lanes();
@@ -62,10 +64,15 @@ static void reset_lanes() {
 }
 
 static void reset_pedos() {
+    const float vcenter = 0.5f * (Game::height() - PEDO_COUNT * PEDO_SPACING * 2.0f);
+
     for (std::size_t i = 0; i < PEDO_COUNT; i++) {
-        const Vector2 origin{SAFE_ZONE / 2.0f, (i + 1) * PEDO_SPAWN_RADIUS * 2.01f};
-        // TODO: randomize offset.
-        const Vector2 offset{0.0f, 0.0f};
+        const Vector2 origin{SAFE_ZONE / 2.0f, vcenter + (i + 1) * PEDO_SPACING * 2.01f};
+
+        const float offset_dir = GetRandomValue(-360, 359) / 360.0f;
+
+        Vector2 offset{offset_dir, 1.0f - std::pow(offset_dir, 2.0f)};
+        offset = Vector2Scale(offset, PEDO_SPAWN_RADIUS);
 
         const auto pos = Vector2Add(origin, offset);
 
