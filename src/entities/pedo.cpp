@@ -103,7 +103,7 @@ void Pedo::draw() {
 
 static void bleed(float center_x, float center_y) {
     center_x += Pedo::WIDTH * 0.5f;
-    center_y += Pedo::HEIGHT * 0.5f;
+    center_y += Pedo::VISUAL_HEIGHT - Pedo::HEIGHT * 0.5f;
 
     BeginTextureMode(Game::background.value());
 
