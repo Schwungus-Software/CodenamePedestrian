@@ -43,7 +43,7 @@ jobs:
         run: cmake --build build -j 4
       - name: Assemble dist-files
         run: |
-          mkdir -p dist
+          mkdir -p dist-${{matrix.config.name}}
           cp -r assets dist-${{matrix.config.name}}
           cp build/${{matrix.config.exe}} dist-${{matrix.config.name}}/${{matrix.config.out}}
       - name: Tar the distribution
