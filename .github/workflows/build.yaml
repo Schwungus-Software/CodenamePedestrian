@@ -46,7 +46,7 @@ jobs:
       - name: Copy the executable into the root folder
         run: cp build/${{matrix.config.exe}} ${{matrix.config.out}}
       - name: Tar the distribution
-        run: tar -cvf ${{matrix.config.name}}.tar ${{matrix.config.out}} assets/
+        run: tar -cvf ${{matrix.config.name}}.tar ${{matrix.config.out}} assets
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
