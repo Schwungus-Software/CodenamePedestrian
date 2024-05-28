@@ -12,7 +12,7 @@
 
 const constexpr float WIDTH = 3.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 10.0f;
 
-const constexpr float FOOTSTEP_DELAY = 0.2f;
+const constexpr float FOOTSTEP_DELAY = 0.2f, PAIN_DELAY = 1.4f;
 
 const constexpr Color BLOOD{255, 0, 0, 255};
 const constexpr float BLOOD_RADIUS = 2.5f, BLOOD_PROB = 0.32f;
@@ -55,6 +55,13 @@ void Pedo::update() {
     }
 
     if (dying) {
+        pain_countdown -= TICK_DELAY;
+
+        if (pain_countdown <= 0.0f) {
+            PlaySound(Sounds::random_pain());
+            pain_countdown = PAIN_DELAY;
+        }
+
         die_countdown -= TICK_DELAY;
 
         if (die_countdown <= 0.0f) {

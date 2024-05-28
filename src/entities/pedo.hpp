@@ -5,7 +5,7 @@
 class Pedo : public Entity {
   public:
     bool dying = false, safe = false;
-    float die_countdown = 0.0f, footstep_countdown = 0.0f;
+    float die_countdown = 0.0f, footstep_countdown = 0.0f, pain_countdown = 0.0f;
 
     Pedo(float, float);
 
