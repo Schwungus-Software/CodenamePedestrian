@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build the HTML5 version
+    name: Build and upload the HTML5 version
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
