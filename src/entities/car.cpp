@@ -9,7 +9,7 @@
 
 #include "entities/pedo.hpp"
 
-const constexpr float CAR_ACCEL = 512.0f, CAR_SLOWDOWN = 864.0f;
+const constexpr float CAR_ACCEL = 212.0f, CAR_SLOWDOWN = 864.0f;
 
 const constexpr float PEDO_DEATH_DELAY = 5.0f, CAR_REALIZATION_DELAY = 3.0f;
 const constexpr float CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 312.0f;
