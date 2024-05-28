@@ -101,8 +101,7 @@ void Pedo::draw() {
 
     if (dying) {
         DrawRectangle(
-            pos.x + width * 0.5f - VISUAL_HEIGHT * 0.5f, pos.y + VISUAL_HEIGHT - height,
-            VISUAL_HEIGHT, width, color
+            pos.x + width * 0.5f - VISUAL_HEIGHT * 0.5f, pos.y, VISUAL_HEIGHT, width, color
         );
     } else {
         DrawRectangle(pos.x, pos.y + height - VISUAL_HEIGHT, width, VISUAL_HEIGHT, color);
@@ -111,7 +110,7 @@ void Pedo::draw() {
 
 static void bleed(float center_x, float center_y) {
     center_x += Pedo::WIDTH * 0.5f;
-    center_y += Pedo::VISUAL_HEIGHT - Pedo::HEIGHT * 0.5f;
+    center_y += Pedo::HEIGHT * 0.5f;
 
     BeginTextureMode(Game::background.value());
 
