@@ -9,12 +9,18 @@
 
 #include "entities/pedo.hpp"
 
+const constexpr float WIDTH = 4.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 9.0f;
+
 const constexpr float FOOTSTEP_DELAY = 0.34f;
 
 const constexpr Color BLOOD{255, 0, 0, 255};
 const constexpr float BLOOD_RADIUS = 2.5f, BLOOD_PROB = 0.32f;
 
+const constexpr float AIR_RESISTANCE = 0.92f;
+
 static void bleed(float, float);
+
+Pedo::Pedo(float x, float y) : Entity(x - WIDTH * 0.5f, y, WIDTH, HEIGHT) {}
 
 bool Pedo::is_active() {
     return !Game::active_pedo.expired() && Game::active_pedo.lock().get() == this;
@@ -125,8 +131,8 @@ void Pedo::draw_impl(Color color) {
 }
 
 static void bleed(float center_x, float center_y) {
-    center_x += Pedo::WIDTH * 0.5f;
-    center_y += Pedo::HEIGHT * 0.5f;
+    center_x += WIDTH * 0.5f;
+    center_y += HEIGHT * 0.5f;
 
     BeginTextureMode(Game::background.value());
 

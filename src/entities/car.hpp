@@ -1,10 +1,7 @@
 #pragma once
 
+#include <cstdint>
 #include <optional>
-
-#include "raylib.h"
-
-#include "defs.hpp"
 
 #include "entities/base.hpp"
 
@@ -21,17 +18,7 @@ class Car : public Entity {
     float realization_countdown = 0.0f;
 
   public:
-    Car(float left, float width, float height, float velocity, Direction direction)
-        : Entity(left, 0.0f, width, height), direction(direction) {
-        vel.y = velocity * (direction == Direction::FORWARD ? 1.0f : -1.0f);
-        starting_velocity = std::abs(vel.y);
-
-        if (direction == Direction::FORWARD) {
-            pos.y = -height + 1.0f;
-        } else {
-            pos.y = Game::height() - 2.0f;
-        }
-    }
+    Car(float, float, float, float, Direction);
 
     std::optional<std::size_t> get_lane_idx() const;
 
