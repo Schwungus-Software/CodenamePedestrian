@@ -21,16 +21,16 @@ bool Pedo::is_active() {
 }
 
 void Pedo::update() {
-    if (pos.x < 0.0f) {
-        pos.x = 0.0f;
+    if (pos.x <= 0.0f) {
+        pos.x = 1.0f;
     } else if (pos.x + width >= GetScreenWidth() - 1.0f) {
-        pos.x = GetScreenWidth() - 1.0f - width;
+        pos.x = GetScreenWidth() - 2.0f - width;
     }
 
-    if (pos.y < 0.0f) {
-        pos.y = 0.0f;
-    } else if (pos.y + height >= GetScreenHeight() - 1.0f) {
-        pos.y = GetScreenHeight() - 1.0f - height;
+    if (pos.y <= 0.0f) {
+        pos.y = 1.0f;
+    } else if (pos.y + height > GetScreenHeight() - 1.0f) {
+        pos.y = GetScreenHeight() - 2.0f - height;
     }
 
     if (safe) {
