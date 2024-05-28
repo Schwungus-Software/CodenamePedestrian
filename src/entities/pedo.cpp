@@ -12,7 +12,7 @@
 
 const constexpr float WIDTH = 3.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 10.0f;
 
-const constexpr float FOOTSTEP_DELAY = 0.34f;
+const constexpr float FOOTSTEP_DELAY = 0.2f;
 
 const constexpr Color BLOOD{255, 0, 0, 255};
 const constexpr float BLOOD_RADIUS = 2.5f, BLOOD_PROB = 0.32f;
@@ -103,7 +103,7 @@ void Pedo::update() {
     footstep_countdown -= TICK_DELAY;
 
     if (Vector2LengthSqr(movement) > 0.01f && footstep_countdown <= 0.0f) {
-        if (!dying) {
+        if (!dying && footstep_sprite % 2 == 0) {
             PlaySound(Sounds::random_footstep());
         }
 
