@@ -55,11 +55,19 @@ jobs:
         with:
           name: ${{matrix.config.fancy_name}}
           path: ${{matrix.config.name}}.tar
+  upload:
+    name: Upload channel ${{matrix.distribution}} to itch.io
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        distribution: [linux-gnu, windows-msvc]
+    steps:
       - name: Upload to itch.io
         uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: ${{matrix.config.name}}
+          CHANNEL: ${{matrix.distribution}}
           ITCH_GAME: codename-pedestrian
           ITCH_USER: nonk123
-          PACKAGE: dist-${{matrix.config.name}}
+          PACKAGE: dist-${{matrix.distribution}}
