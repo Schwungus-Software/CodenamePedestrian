@@ -9,7 +9,7 @@
 
 #include "entities/pedo.hpp"
 
-const constexpr float PEDO_DEATH_DELAY = 1.7f, CAR_DESPAWN_DELAY = 5.0f;
+const constexpr float PEDO_DEATH_DELAY = 2.5f, CAR_DESPAWN_DELAY = 6.0f;
 const constexpr float CRASH_IMPULSE_FACTOR = 1.7f, CRASH_HORIZONTAL_IMPULSE = 312.0f;
 
 const constexpr Color BRAKE_TRAIL{12, 12, 12, 255};
@@ -53,14 +53,14 @@ void Car::update() {
 
     auto& pedo = *Game::active_pedo.lock();
 
-    if (!braking && !pedo.dying && intersects_with(pedo)) {
-        if (!braking) {
-            braking = true;
-            despawn_countdown = CAR_DESPAWN_DELAY;
-        }
+    if (!braking && intersects_with(pedo)) {
+        braking = true;
+        despawn_countdown = CAR_DESPAWN_DELAY;
 
-        pedo.dying = true;
-        pedo.die_countdown = PEDO_DEATH_DELAY;
+        if (!pedo.dying) {
+            pedo.dying = true;
+            pedo.die_countdown = PEDO_DEATH_DELAY;
+        }
 
         pedo.vel = Vector2Add(pedo.vel, Vector2Scale(vel, CRASH_IMPULSE_FACTOR));
         pedo.vel.x += CRASH_HORIZONTAL_IMPULSE * GetRandomValue(-50, 50) * 0.02f;
