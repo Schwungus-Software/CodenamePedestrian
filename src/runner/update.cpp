@@ -81,7 +81,7 @@ static void spawn_cars() {
         spawn_delay = BASE_SPAWN_DELAY_PER_LANE + SPAWN_DELAY_RANDOM_OFFSET * randomness;
         spawn_delay /= lanes_count;
 
-        const float WIDTH = LANE_WIDTH * 0.9f, HEIGHT = LANE_WIDTH * 1.8f;
+        const float WIDTH = LANE_WIDTH - 4.0f, HEIGHT = WIDTH * 2.0f;
 
         float left;
         Car::Direction dir;

@@ -8,3 +8,7 @@ namespace Sprites::Pedo {
     inline Texture2D standing;
     inline std::array<Texture2D, 2> walking;
 } // namespace Sprites::Pedo
+
+namespace Sprites {
+    inline Texture2D car;
+}

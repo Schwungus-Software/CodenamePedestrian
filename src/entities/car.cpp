@@ -6,6 +6,7 @@
 #include "defs.hpp"
 #include "lane.hpp"
 #include "sounds.hpp"
+#include "sprites.hpp"
 
 #include "entities/pedo.hpp"
 
@@ -96,7 +97,20 @@ void Car::update() {
 }
 
 void Car::draw() {
-    DrawRectangle(pos.x, pos.y, width, height, BLUE);
+    DrawTextureRec(
+        Sprites::car,
+        {
+            0.0f,
+            0.0f,
+            width,
+            direction == Direction::FORWARD ? height : -height,
+        },
+        {
+            std::floor(pos.x),
+            std::floor(pos.y),
+        },
+        WHITE
+    );
 }
 
 std::optional<std::size_t> Car::get_lane_idx() const {
