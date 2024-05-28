@@ -10,7 +10,7 @@
 #include "entities/car.hpp"
 #include "entities/pedo.hpp"
 
-const constexpr float BASE_SPAWN_DELAY_PER_LANE = 4.0f, SPAWN_DELAY_RANDOM_OFFSET = 10.0f;
+const constexpr float BASE_SPAWN_DELAY_PER_LANE = 3.0f, SPAWN_DELAY_RANDOM_OFFSET = 6.0f;
 const constexpr float CAR_VELOCITY = 312.0f;
 
 extern void restart();

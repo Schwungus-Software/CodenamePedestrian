@@ -16,11 +16,8 @@ class Entity {
         : pos{x, y}, vel{0.0f, 0.0f}, width(width), height(height) {}
 
     bool intersects_with(const Entity&);
-
-  protected:
     void apply_velocity();
 
-  public:
     virtual void update() = 0;
     virtual void draw() = 0;
 };

@@ -8,8 +8,6 @@
 
 class Car : public Entity {
   public:
-    static constexpr const float SLOWDOWN = 1024.0f;
-
     enum Direction {
         FORWARD,
         BACKWARD,
@@ -17,12 +15,14 @@ class Car : public Entity {
 
   private:
     bool braking = false;
-    float despawn_countdown = 0.0f;
+    float starting_velocity;
+    float realization_countdown = 0.0f;
 
   public:
     Car(float left, float width, float height, float velocity, Direction direction)
         : Entity(left, 0.0f, width, height), direction(direction) {
         vel.y = velocity * (direction == Direction::FORWARD ? 1.0f : -1.0f);
+        starting_velocity = std::abs(vel.y);
 
         if (direction == Direction::FORWARD) {
             pos.y = -height + 1.0f;
