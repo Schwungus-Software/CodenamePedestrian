@@ -93,10 +93,11 @@ void draw() {
     if (Game::all_pedos_gone) {
         if (Game::score > 0) {
             center_err("YOU SAVED SOMEONE! PRESS R TO TRY AGAIN");
-            draw_score();
         } else {
             center_err("GAME OVER. PRESS R TO RESTART");
         }
+
+        draw_score();
 
         return;
     }
