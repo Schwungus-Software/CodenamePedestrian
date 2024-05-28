@@ -12,7 +12,7 @@
 
 #include "entities/pedo.hpp"
 
-const constexpr float WIDTH = 3.0f, HEIGHT = 1.5f, VISUAL_HEIGHT = 10.0f;
+const constexpr float WIDTH = 3.2f, HEIGHT = 2.2f, VISUAL_HEIGHT = 10.0f;
 
 const constexpr float FOOTSTEP_DELAY = 0.2f, PAIN_DELAY = 1.4f;
 
@@ -141,6 +141,10 @@ void Pedo::draw() {
 }
 
 void Pedo::draw_impl(Color tint) {
+    DrawRectangle(
+        std::floor(pos.x), std::floor(pos.y), std::floor(width), std::floor(height), {0, 0, 0, 127}
+    );
+
     Texture2D sprite;
 
     switch (footstep_sprite) {
