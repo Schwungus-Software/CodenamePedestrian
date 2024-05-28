@@ -5,5 +5,5 @@ namespace Game {
 }
 
 namespace Goals {
-    const constexpr int PEDO_SAVED = 100;
+    const constexpr int PEDO_SAVED = 100, PEDO_OK = 40;
 }

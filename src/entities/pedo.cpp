@@ -29,25 +29,18 @@ void Pedo::update() {
 
     if (pos.y <= 0.0f) {
         pos.y = 1.0f;
-    } else if (pos.y + height > GetScreenHeight() - 1.0f) {
+    } else if (pos.y + height >= GetScreenHeight() - 1.0f) {
         pos.y = GetScreenHeight() - 2.0f - height;
-    }
-
-    if (safe) {
-        apply_velocity();
-        return;
     }
 
     const float safe_zone_hit = SAFE_ZONE + Game::break_lane_width +
                                 (Game::front_lanes.size() + Game::back_lanes.size()) * LANE_WIDTH +
                                 SAFE_ZONE_DISPATCH_MARGIN;
 
-    if (!dying && pos.x >= safe_zone_hit) {
+    if (!safe && pos.x >= safe_zone_hit) {
         Game::active_pedo = {};
-        Game::score += Goals::PEDO_SAVED;
-        dying = false;
+        Game::score += dying ? Goals::PEDO_OK : Goals::PEDO_SAVED;
         safe = true;
-        return;
     }
 
     if (dying) {
