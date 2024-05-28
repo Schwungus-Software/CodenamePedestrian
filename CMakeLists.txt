@@ -21,6 +21,20 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
+if(EMSCRIPTEN)
+  set(WEB_FLAGS
+      "--preload-file assets/ -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY"
+  )
+
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WEB_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WEB_FLAGS}")
+  set(CMAKE_EXECUTABLE_SUFFIX ".js")
+
+  file(COPY "${CMAKE_SOURCE_DIR}/index.html" DESTINATION "${CMAKE_BINARY_DIR}")
+endif()
+
+file(COPY "${CMAKE_SOURCE_DIR}/assets" DESTINATION "${CMAKE_BINARY_DIR}")
+
 add_executable(${PROJECT_TARGET} ${SOURCES} ${HEADERS})
 target_include_directories(${PROJECT_TARGET} PRIVATE ${SOURCE_DIR})
 target_link_libraries(${PROJECT_TARGET} raylib)
