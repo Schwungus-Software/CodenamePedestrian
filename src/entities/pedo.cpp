@@ -56,6 +56,11 @@ void Pedo::update() {
         if (die_countdown <= 0.0f) {
             PlaySound(Sounds::pedo_die);
             deletion_marker = true;
+
+            BeginTextureMode(Game::background.value());
+            draw_impl({127, 0, 0, 255});
+            EndTextureMode();
+
             return;
         }
     }
@@ -109,8 +114,10 @@ void Pedo::update() {
 }
 
 void Pedo::draw() {
-    const auto color = RED;
+    draw_impl(RED);
+}
 
+void Pedo::draw_impl(Color color) {
     if (dying) {
         DrawRectangle(
             pos.x + width * 0.5f - VISUAL_HEIGHT * 0.5f, pos.y, VISUAL_HEIGHT, width, color

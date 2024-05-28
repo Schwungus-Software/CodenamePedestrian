@@ -69,16 +69,15 @@ void Car::update() {
         braking = true;
 
         if (pedo.dying) {
-            pedo.deletion_marker = true;
-            PlaySound(Sounds::pedo_die);
+            pedo.die_countdown = 0.0f;
         } else {
             pedo.dying = true;
             pedo.die_countdown = PEDO_DEATH_DELAY;
-        }
 
-        pedo.vel = Vector2Add(pedo.vel, Vector2Scale(vel, CRASH_IMPULSE_FACTOR));
-        pedo.vel.x += CRASH_HORIZONTAL_IMPULSE * GetRandomValue(-50, 50) * 0.02f;
-        pedo.apply_velocity();
+            pedo.vel = Vector2Add(pedo.vel, Vector2Scale(vel, CRASH_IMPULSE_FACTOR));
+            pedo.vel.x += CRASH_HORIZONTAL_IMPULSE * GetRandomValue(-50, 50) * 0.02f;
+            pedo.apply_velocity();
+        }
 
         PlaySound(Sounds::crash);
     }

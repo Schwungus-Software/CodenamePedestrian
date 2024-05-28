@@ -15,6 +15,10 @@ class Pedo : public Entity {
     void update() override;
     void draw() override;
 
+  private:
+    void draw_impl(Color);
+
+  public:
     bool is_active();
 };
 
