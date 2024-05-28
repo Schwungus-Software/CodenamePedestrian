@@ -4,6 +4,8 @@
 
 #include "raylib.h"
 
+#include "defs.hpp"
+
 #include "entities/base.hpp"
 
 class Car : public Entity {
@@ -27,7 +29,7 @@ class Car : public Entity {
         if (direction == Direction::FORWARD) {
             pos.y = -height + 1.0f;
         } else {
-            pos.y = GetScreenHeight() - 2.0f;
+            pos.y = Game::height() - 2.0f;
         }
     }
 

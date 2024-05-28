@@ -28,7 +28,7 @@ static void reset_lanes() {
     Game::front_lanes.clear();
     Game::back_lanes.clear();
 
-    const int width = GetScreenWidth() / TOTAL_ZOOM - SAFE_ZONE * 2;
+    const int width = Game::width() - SAFE_ZONE * 2;
 
     const int lanes_total_width = width - BREAK_LANE_MIN_WIDTH;
     const int lanes_count = lanes_total_width / LANE_WIDTH;

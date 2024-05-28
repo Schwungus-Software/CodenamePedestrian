@@ -40,7 +40,7 @@ void Car::update() {
 
     const float MARGIN = 32.0f;
 
-    if ((direction == Direction::FORWARD && pos.y + MARGIN > GetScreenHeight()) ||
+    if ((direction == Direction::FORWARD && pos.y - height - MARGIN > Game::height()) ||
         (direction == Direction::BACKWARD && pos.y + height + MARGIN < 0.0f)) {
         deletion_marker = true;
         return;

@@ -18,13 +18,13 @@ static void draw_entities() {
 }
 
 static void draw_driving_lane(float left, float width) {
-    DrawRectangle(left, 0.0f, width, GetScreenHeight(), DARKGRAY);
+    DrawRectangle(left, 0.0f, width, Game::height(), DARKGRAY);
     // TODO: draw the white stripe thingies, i don't know what they are because i don't have a
     // driver's license.
 }
 
 static void draw_safe_lane(float left, float width) {
-    DrawRectangle(left, 0.0f, width, GetScreenHeight(), LIGHTGRAY);
+    DrawRectangle(left, 0.0f, width, Game::height(), LIGHTGRAY);
 }
 
 void reset_background() {
@@ -32,7 +32,7 @@ void reset_background() {
         UnloadRenderTexture(Game::background.value());
     }
 
-    Game::background = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+    Game::background = LoadRenderTexture(Game::width(), Game::height());
 
     BeginTextureMode(Game::background.value());
     ClearBackground(GREEN);
