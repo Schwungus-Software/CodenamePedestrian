@@ -10,6 +10,9 @@
 #include "entities/car.hpp"
 #include "entities/pedo.hpp"
 
+const constexpr float BASE_SPAWN_DELAY_PER_LANE = 4.0f, SPAWN_DELAY_RANDOM_OFFSET = 10.0f;
+const constexpr float CAR_VELOCITY = 312.0f;
+
 extern void restart();
 
 static void spawn_cars();
@@ -43,8 +46,6 @@ void update() {
         Game::all_pedos_gone = true;
     }
 }
-
-const constexpr float BASE_SPAWN_DELAY_PER_LANE = 2.0f, SPAWN_DELAY_RANDOM_OFFSET = 5.0f;
 
 static void spawn_cars() {
     static float spawn_delay = 0.0f;
@@ -95,6 +96,6 @@ static void spawn_cars() {
 
         left += (LANE_WIDTH - WIDTH) * 0.5f;
 
-        Game::entities.emplace_back(new Car(left, WIDTH, HEIGHT, 512.0f, dir));
+        Game::entities.emplace_back(new Car(left, WIDTH, HEIGHT, CAR_VELOCITY, dir));
     }
 }

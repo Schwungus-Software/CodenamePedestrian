@@ -30,7 +30,7 @@ void Pedo::update() {
                                 (Game::front_lanes.size() + Game::back_lanes.size()) * LANE_WIDTH +
                                 SAFE_ZONE_DISPATCH_MARGIN;
 
-    if (pos.x >= safe_zone_hit) {
+    if (!dying && pos.x >= safe_zone_hit) {
         Game::active_pedo = {};
         Game::score += Goals::PEDO_SAVED;
         dying = false;
@@ -84,7 +84,6 @@ void Pedo::update() {
     pos = Vector2Add(pos, movement);
 
     vel = Vector2Scale(vel, AIR_RESISTANCE);
-
     apply_velocity();
 
     const auto dist = Vector2Subtract(pos, old_pos);
