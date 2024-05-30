@@ -30,20 +30,20 @@ bool Pedo::is_active() {
 }
 
 void Pedo::update() {
-    if (pos.x <= 0.0f) {
-        pos.x = 1.0f;
+    if (pos.x < 0.0f) {
+        pos.x = 0.0f;
     }
 
-    if (pos.x + width >= Game::width() - 1.0f) {
-        pos.x = Game::width() - 2.0f - width;
+    if (pos.x + width > Game::width() - 1.0f) {
+        pos.x = Game::width() - 1.0f - width;
     }
 
-    if (pos.y <= 0.0f) {
-        pos.y = 1.0f;
+    if (pos.y < 0.0f) {
+        pos.y = 0.0f;
     }
 
-    if (pos.y + height >= Game::height() - 1.0f) {
-        pos.y = Game::height() - 2.0f - height;
+    if (pos.y + height > Game::height() - 1.0f) {
+        pos.y = Game::height() - 1.0f - height;
     }
 
     const float safe_zone_hit = SAFE_ZONE + Game::break_lane_width +
