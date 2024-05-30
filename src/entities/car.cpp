@@ -136,7 +136,7 @@ std::optional<std::size_t> Car::get_lane_idx() const {
 static void draw_brake_trail(float x, float y, float car_width, float car_height, float dist) {
     const float margin = 1.0f;
 
-    BeginTextureMode(Game::background.value());
+    BeginTextureMode(Game::background);
 
     if (dist < 0.0f) {
         dist = std::abs(dist);

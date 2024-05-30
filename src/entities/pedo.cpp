@@ -70,7 +70,7 @@ void Pedo::update() {
             PlaySound(Sounds::pedo_die);
             deletion_marker = true;
 
-            BeginTextureMode(Game::background.value());
+            BeginTextureMode(Game::background);
             draw_impl({127, 0, 0, 255});
             EndTextureMode();
 
@@ -191,7 +191,7 @@ static void bleed(float center_x, float center_y) {
     center_x += WIDTH * 0.5f;
     center_y += HEIGHT * 0.5f;
 
-    BeginTextureMode(Game::background.value());
+    BeginTextureMode(Game::background);
 
     for (float x = center_x - BLOOD_RADIUS; x <= center_x + BLOOD_RADIUS; x += 1.0f) {
         for (float y = center_y - BLOOD_RADIUS; y <= center_y + BLOOD_RADIUS; y += 1.0f) {

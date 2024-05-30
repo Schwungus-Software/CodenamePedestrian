@@ -39,13 +39,13 @@ static void draw_safe_lane(int left, int width) {
 }
 
 void reset_background() {
-    if (Game::background.has_value()) {
-        UnloadRenderTexture(Game::background.value());
+    if (IsRenderTextureReady(Game::background)) {
+        UnloadRenderTexture(Game::background);
     }
 
     Game::background = LoadRenderTexture(Game::width(), Game::height());
 
-    BeginTextureMode(Game::background.value());
+    BeginTextureMode(Game::background);
     ClearBackground(GREEN);
 
     draw_safe_lane(0, SAFE_ZONE);
@@ -122,7 +122,7 @@ void draw() {
         .zoom = TOTAL_ZOOM,
     });
 
-    const auto& bg = Game::background.value().texture;
+    const auto& bg = Game::background.texture;
 
     DrawTextureRec(
         bg,
