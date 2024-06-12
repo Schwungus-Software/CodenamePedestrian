@@ -23,7 +23,7 @@ FetchContent_MakeAvailable(raylib)
 
 if(EMSCRIPTEN)
   set(WEB_FLAGS
-      "--preload-file assets/ -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY"
+      "--preload-file assets/ -s USE_GLFW=3 -s ASSERTIONS=0 -s WASM=1 -s ASYNCIFY=1"
   )
 
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WEB_FLAGS}")

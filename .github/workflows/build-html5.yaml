@@ -18,12 +18,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         run: |
-          emcmake cmake -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -B build -S ${{github.workspace}} -G Ninja
-          cmake --build build -j 4
+          emcmake cmake -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -B build-html5 -S ${{github.workspace}} -G Ninja
+          cmake --build build-html5 -j 4
       - name: Assemble dist-files
         run: |
           mkdir -p dist-html5
-          cp build/index.html build/CodenamePedestrian.data build/CodenamePedestrian.wasm build/CodenamePedestrian.js dist-html5
+          cd build-html5
+          cp index.html CodenamePedestrian.data CodenamePedestrian.wasm CodenamePedestrian.js ../dist-html5
       - name: Upload to itch.io
         uses: manleydev/butler-publish-itchio-action@master
         env:
