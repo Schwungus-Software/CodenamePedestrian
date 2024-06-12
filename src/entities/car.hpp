@@ -18,7 +18,7 @@ class Car : public Entity {
     float realization_countdown = 0.0f;
 
   public:
-    Car(float, float, float, float, Direction);
+    Car(float, float, float, Direction);
 
     std::optional<std::size_t> get_lane_idx() const;
 

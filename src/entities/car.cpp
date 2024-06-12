@@ -12,6 +12,7 @@
 
 #include "entities/pedo.hpp"
 
+const constexpr float CAR_VELOCITY = 128.0f, CAR_RANDOM = 312.0f;
 const constexpr float CAR_ACCEL = 212.0f, CAR_SLOWDOWN = 864.0f;
 
 const constexpr float PEDO_DEATH_DELAY = 5.0f, CAR_REALIZATION_DELAY = 3.0f;
@@ -22,9 +23,12 @@ const constexpr float BRAKE_TRAIL_WIDTH = 1.5f;
 
 static void draw_brake_trail(float, float, float, float, float);
 
-Car::Car(float left, float width, float height, float velocity, Direction direction)
+Car::Car(float left, float width, float height, Direction direction)
     : Entity(left, 0.0f, width, height), direction(direction) {
-    vel.y = velocity * (direction == Direction::FORWARD ? 1.0f : -1.0f);
+    const float fdir = (direction == Direction::FORWARD ? 1.0f : -1.0f);
+    const float random = GetRandomValue(0, 100) / 100.0f;
+
+    vel.y = (CAR_VELOCITY + random * CAR_RANDOM) * fdir;
     starting_velocity = std::abs(vel.y);
 
     if (direction == Direction::FORWARD) {

@@ -11,7 +11,6 @@
 #include "entities/pedo.hpp"
 
 const constexpr float BASE_SPAWN_DELAY_PER_LANE = 3.0f, SPAWN_DELAY_RANDOM_OFFSET = 6.0f;
-const constexpr float CAR_VELOCITY = 312.0f;
 
 extern void restart();
 
@@ -96,6 +95,6 @@ static void spawn_cars() {
 
         left += (LANE_WIDTH - WIDTH) * 0.5f;
 
-        Game::entities.emplace_back(new Car(left, WIDTH, HEIGHT, CAR_VELOCITY, dir));
+        Game::entities.emplace_back(new Car(left, WIDTH, HEIGHT, dir));
     }
 }
