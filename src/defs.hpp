@@ -9,7 +9,7 @@ const constexpr float TICK_DELAY = 1.0f / TICK_RATE;
 
 const constexpr float TOTAL_ZOOM = 4.0f;
 
-const constexpr std::size_t PEDO_COUNT = 20;
+const constexpr std::size_t PEDO_COUNT = 14;
 const constexpr float CARS_PER_LANE = 1.2f;
 
 const constexpr int SAFE_ZONE = 32, SAFE_ZONE_DISPATCH_MARGIN = 4;
